@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useCart } from './CartContext'; // Import useCart hook
 
 export default function Card() {
 	const [plantData, setPlantData] = useState([]);
-	const [cart, setCart] = useState([]);
-	const [cartCount, setCartCount] = useState(0);
+	const { cart, addToCart, cartCount } = useCart(); // Use context values
 
 	async function fetchData() {
 		try {
@@ -21,11 +21,6 @@ export default function Card() {
 	useEffect(() => {
 		fetchData();
 	}, []);
-
-	const handleAddToCart = (plant) => {
-		setCart((prevCart) => [...prevCart, plant]);
-		setCartCount((prevCount) => prevCount + 1);
-	};
 
 	const groupedPlants = plantData.reduce((groups, plant) => {
 		const category = plant.cycle; // Use cycle or any other property for grouping
@@ -76,7 +71,7 @@ export default function Card() {
 											<strong>Sunlight:</strong> {plant.sunlight?.join(", ")}
 										</p>
 										<button
-											onClick={() => handleAddToCart(plant)}
+											onClick={() => addToCart(plant)} // Use addToCart from context
 											disabled={cart.some(item => item.id === plant.id)}
 											className="mt-4 bg-blue-500 text-white py-2 px-4 rounded disabled:bg-gray-500"
 										>

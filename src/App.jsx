@@ -43,21 +43,29 @@ function App() {
 
 function CartIcon() {
 	const { cartCount } = useCart();
+	console.log('Cart count in CartIcon:', cartCount); // Debugging log
 
 	return (
-		<Link to="/shopping" className='relative inline-block'>
+		<Link to="/shopping" className="relative inline-block">
 			<img
 				src="/icons8-cart-64.png"
 				alt="Shopping Cart"
-				className='w-6 h-6'
+				className="w-6 h-6"
 			/>
 			{cartCount > 0 && (
-				<span className='absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-2 py-1'>
+				<span
+					className="absolute top-6 -right-1 transform translate-x-1/2 -translate-y-1/2 bg-red-500 opacity-50 text-white text-xs rounded-full px-2"
+					style={{ minWidth: '1.5rem', minHeight: '1.5rem', textAlign: 'center', lineHeight: '1.5rem' }}
+				>
 					{cartCount}
 				</span>
 			)}
 		</Link>
 	);
 }
+
+
+
+
 
 export default App;
